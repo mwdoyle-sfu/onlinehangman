@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Game</title>
+    <title>CMPT 213 Online Hangman Game</title>
 </head>
 <body>
-
+<div align="center">
+    <form action="#" th:action="@{/game}" method="post" th:object="${gameInfo}">
+        <h1>Game <th:block th:text="${gameInfo.gameNumber}">message</th:block> page</h1>
+        <label>Status: <th:block th:text="${gameInfo.status}">message</th:block></label><br/>
+        <label>You have made <th:block th:text="${gameInfo.guesses}">message</th:block> guesses, out of which <th:block th:text="${gameInfo.incorrectGuesses}">message</th:block> are incorrect:</label><br/>
+        <label>
+            Your guess:
+            <input type="text" th:field="*{currentGuess}" />
+            <button>Make a guess</button><br/>  
+        </label>
+        <a href="/welcome">Back to welcome page</a>
+    </form>
+</div>
 </body>
 </html>
