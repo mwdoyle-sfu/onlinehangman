@@ -2,11 +2,10 @@ package ca.cmpt213.a4.onlinehangman.controllers;
 
 import ca.cmpt213.a4.onlinehangman.model.GameInfo;
 import ca.cmpt213.a4.onlinehangman.model.Message;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
@@ -60,15 +59,6 @@ public class HangmanController {
         return "welcome";
     }
 
-//    @GetMapping("/game")
-//    public String showGamePage(Model model) {
-//
-//        model.addAttribute("gameInfo", gameInfo);
-//
-//        // take the user to game.html
-//        return "game";
-//    }
-
     @PostMapping("/game")
     public String submitForm(@ModelAttribute("gameInfo") GameInfo info, Model model) {
 
@@ -87,11 +77,13 @@ public class HangmanController {
             gameInfo.setHiddenWord(s);
 
             model.addAttribute("gameInfo", gameInfo);
+            gameInfoList.add(gameInfo);
 
         } else {
 
             if (info.getCurrentGuess() == "") {
                 model.addAttribute("gameInfo", gameInfo);
+                gameInfoList.set((int)gameInfo.getGameNumber() - 1, gameInfo);
                 return "game";
             }
 
@@ -122,17 +114,20 @@ public class HangmanController {
             // check for win
             if (!gameInfo.getBlankHiddenWord().contains("_")) {
                 gameInfo.setStatus(GameInfo.Status.Won);
-                model.addAttribute(gameInfo);
+                model.addAttribute("gameInfo", gameInfo);
+                gameInfoList.set((int)gameInfo.getGameNumber() - 1, gameInfo);
                 return "gameover";
             }
             // check for loss
             if (gameInfo.getIncorrectGuesses() == 7)  {
                 gameInfo.setStatus(GameInfo.Status.Lost);
-                model.addAttribute(gameInfo);
+                model.addAttribute("gameInfo", gameInfo);
+                gameInfoList.set((int)gameInfo.getGameNumber() - 1, gameInfo);
                 return "gameover";
             }
 
-            model.addAttribute(gameInfo);
+            model.addAttribute("gameInfo", gameInfo);
+            gameInfoList.set((int)gameInfo.getGameNumber() - 1, gameInfo);
         }
 
         System.out.println(gameInfo);
@@ -142,5 +137,49 @@ public class HangmanController {
     }
 
     // list selected game {id}
+    @GetMapping("/game/{id}")
+    public String showGamePage(@PathVariable("id") long id, Model model) {
+
+        // if id < 1 send error
+        gameInfo = null;
+
+        for (GameInfo game : gameInfoList) {
+            if (game.getGameNumber() == id) {
+                gameInfo = game;
+            }
+        }
+
+        if (gameInfo == null) {
+            // game not found error
+            return badValueExceptionHandler();
+
+        } else {
+            // check for win
+            if (!gameInfo.getBlankHiddenWord().contains("_")) {
+                gameInfo.setStatus(GameInfo.Status.Won);
+                model.addAttribute(gameInfo);
+                return "gameover";
+            }
+            // check for loss
+            if (gameInfo.getIncorrectGuesses() == 7) {
+                gameInfo.setStatus(GameInfo.Status.Lost);
+                model.addAttribute(gameInfo);
+                return "gameover";
+            }
+
+            model.addAttribute("gameInfo", gameInfo);
+
+            // take the user to game.html
+            return "game";
+        }
+    }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND,
+            reason = "Invalid values.")
+    @ExceptionHandler(GameNotFoundException.class)
+    public String badValueExceptionHandler() {
+        // do nothing
+        return "gamenotfound";
+    }
 
 }

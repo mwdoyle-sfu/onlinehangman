@@ -9,7 +9,9 @@
     <form action="#" th:action="@{/game}" method="post" th:object="${gameInfo}">
         <h1>Game <th:block th:text="${gameInfo.gameNumber}">message</th:block> page</h1>
         <label>Status: <th:block th:text="${gameInfo.status}">message</th:block></label><br/>
-        <label>Word: <th:block th:text="${gameInfo.word}">message</th:block></label>
+        <label>Word: <th:block th:text="${gameInfo.word}">message</th:block></label><br/>
+        <a href="/welcome">Back to welcome page</a>
+
     </form>
 </div>
 </body>
