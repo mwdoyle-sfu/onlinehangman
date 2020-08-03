@@ -15,6 +15,7 @@ public class GameInfo {
     private Status status;
     private String word;
     private String hiddenWord;
+    private String image = "/images/hangman0.jpg";
 
     public GameInfo(){
     }
@@ -86,6 +87,13 @@ public class GameInfo {
         this.hiddenWord = hiddenWord;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     @Override
     public String toString() {

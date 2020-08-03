@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>CMPT 213 Online Hangman Game</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css" media="screen">
 </head>
 <body>
 <div align="center">
     <form action="#" th:action="@{/game}" method="post" th:object="${gameInfo}">
         <h1>Game <th:block th:text="${gameInfo.gameNumber}">message</th:block> page</h1>
-        <label>Status: <th:block th:text="${gameInfo.status}">message</th:block></label><br/>
-        <label>Word: <th:block th:text="${gameInfo.word}">message</th:block></label><br/>
+        <h2>Status: <th:block th:text="${gameInfo.status}">message</th:block></h2><br/>
+        <h2>Word: <th:block th:text="${gameInfo.word}">message</th:block></h2><br/>
+        <img th:src="${gameInfo.image}" /><br/><br/>
         <a href="/welcome">Back to welcome page</a>
 
     </form>

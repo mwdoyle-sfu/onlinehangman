@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>CMPT 213 Online Hangman Game</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 <body>
 <div align="center">
     <form action="#" th:action="@{/game}" method="post" th:object="${gameInfo}">
         <h1>Game <th:block th:text="${gameInfo.gameNumber}">message</th:block> page</h1>
-        <label>Status: <th:block th:text="${gameInfo.status}">message</th:block></label><br/>
-        <label>Progress: <th:block th:text="${gameInfo.hiddenWord}">message</th:block></label><br/>
-        <label>You have made <th:block th:text="${gameInfo.guesses}">message</th:block> guesses, out of which <th:block th:text="${gameInfo.incorrectGuesses}">message</th:block> are incorrect</label><br/>
-        <label>
+        <h2>Status: <th:block th:text="${gameInfo.status}">message</th:block></h2><br/>
+        <h2>Progress: <th:block th:text="${gameInfo.hiddenWord}">message</th:block></h2><br/>
+        <img th:src="${gameInfo.image}" /><br/>
+        <h2>You have made <th:block th:text="${gameInfo.guesses}">message</th:block> guesses, out of which <th:block th:text="${gameInfo.incorrectGuesses}">message</th:block> are incorrect</h2><br/>
+        <h2>
             Your guess:
             <input type="text" th:field="*{currentGuess}" />
             <button>Make a guess</button><br/>  
-        </label>
+        </h2>
         <a href="/welcome">Back to welcome page</a>
     </form>
 </div>

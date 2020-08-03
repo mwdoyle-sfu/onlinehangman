@@ -3,26 +3,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="styles/main.css" media="screen">
     <title>CMPT 213 Online Hangman Game</title>
 </head>
 <body>
 <div align="center">
     <h1>Welcome to The Hangman Game!</h1>
-    <p>
+    <h2>
         Matthew Doyle<br>
         301322233<br>
         mwdoyle@sfu.ca<br>
-    </p>
-    <p>How to Play</p>
-    <p>
-        One player thinks of a word or phrase; the others try to guess what it is one letter at a time. The player draws a
-        number of dashes equivalent to the number of letters in the word. If a guessing player suggests a letter that occurs
-        in the word, the other player fills in the blanks with that letter in the right places. If the word does not contain
-        the suggested letter, the other player draws one element of a hangman’s gallows. As the game progresses, a segment of
-        the gallows and of a victim is added for every suggested letter not in the word. The number of incorrect guesses before
-        the game ends is up to the players, but completing a character in a noose provides a minimum of six wrong answers until
-        the game ends. The first player to guess the correct answer thinks of the word for the next game.
-    </p>
+    </h2>
+    <h2>How to Play:</h2>
+    <h3>
+        The computer displays a word; the player tries to guess what it is one letter at a time. The computer displays a
+        number of dashes equivalent to the number of letters in the word.
+    </h3>
+    <h3>If a guessing player suggests a letter that occurs in the word, the computer fills in the blanks with that letter
+        in the right places.
+    </h3>
+    <h3>
+        If the word does not contain the suggested letter, the computer adds to the incorrect answer tally.
+    </h3>
+    <h3>
+        A total of 7 incorrect guesses are allowed before the game ends.
+    </h3>
 
     <form action="#" th:action="@{/game}" method="post">
         <button>Start a new game!</button>  

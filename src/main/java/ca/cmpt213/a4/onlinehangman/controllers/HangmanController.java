@@ -23,7 +23,9 @@ public class HangmanController {
     private AtomicLong nextGameNumber = new AtomicLong();
     private GameInfo gameInfo = null;
     private List<GameInfo> gameInfoList = new ArrayList<>();
-    private List<String> stringList  = new ArrayList<>();;
+    private List<String> stringList  = new ArrayList<>();
+    private List<String> images  = new ArrayList<>();
+
 
     // https://stackoverflow.com/a/16100219
     public void getWords() throws IOException {
@@ -40,6 +42,14 @@ public class HangmanController {
     public void hangmanControllerInit() throws IOException {
         promptMessage = new Message("Initializing...");
         getWords();
+        images.add("/images/hangman0.jpg");
+        images.add("/images/hangman1.jpg");
+        images.add("/images/hangman2.jpg");
+        images.add("/images/hangman3.jpg");
+        images.add("/images/hangman4.jpg");
+        images.add("/images/hangman5.jpg");
+        images.add("/images/hangman6.jpg");
+        images.add("/images/hangman7.jpg");
     }
 
     @GetMapping("/helloworld")
@@ -102,6 +112,7 @@ public class HangmanController {
             // increment incorrect guess if true
             if (characterLocations.size() == 0){
                 gameInfo.incrementIncorrectGuesses();
+                gameInfo.setImage(images.get(gameInfo.getIncorrectGuesses()));
             } else {
                 // reveal letters
                 for (int i = 0; i < characterLocations.size(); i++) {
