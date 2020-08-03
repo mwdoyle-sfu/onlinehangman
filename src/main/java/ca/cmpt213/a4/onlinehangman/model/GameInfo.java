@@ -11,20 +11,15 @@ public class GameInfo {
     private long gameNumber;
     private int guesses;
     private int incorrectGuesses;
-    private char currentGuess;
+    private String currentGuess;
     private Status status;
     private String word;
+    private String hiddenWord;
 
     public GameInfo(){
-        this.gameNumber = 0;
-        this.guesses = 0;
-        this.incorrectGuesses = 0;
-        this.currentGuess = ' ';
-        this.status = Status.Active;
-        this.word = "cunt";
     }
 
-    public GameInfo(long gameNumber, int guesses, int incorrectGuesses, char currentGuess, Status status, String word) {
+    public GameInfo(long gameNumber, int guesses, int incorrectGuesses, String currentGuess, Status status, String word) {
         this.gameNumber = gameNumber;
         this.guesses = guesses;
         this.incorrectGuesses = incorrectGuesses;
@@ -59,9 +54,11 @@ public class GameInfo {
         this.incorrectGuesses = incorrectGuesses;
     }
 
-    public char getCurrentGuess() { return currentGuess; }
+    public void incrementIncorrectGuesses () { this.incorrectGuesses++; }
 
-    public void setCurrentGuess(char currentGuess) {
+    public String getCurrentGuess() { return currentGuess; }
+
+    public void setCurrentGuess(String currentGuess) {
         this.currentGuess = currentGuess;
     }
 
@@ -77,15 +74,29 @@ public class GameInfo {
 
     public void setWord(String word) { this.word = word; }
 
+    public String getHiddenWord() {
+        return hiddenWord.replace("", " ").trim();
+    }
+
+    public String getBlankHiddenWord() {
+        return hiddenWord;
+    }
+
+    public void setHiddenWord(String hiddenWord) {
+        this.hiddenWord = hiddenWord;
+    }
+
+
     @Override
     public String toString() {
         return "GameInfo{" +
                 "gameNumber=" + gameNumber +
                 ", guesses=" + guesses +
                 ", incorrectGuesses=" + incorrectGuesses +
-                ", currentGuess=" + currentGuess +
+                ", currentGuess='" + currentGuess + '\'' +
                 ", status=" + status +
                 ", word='" + word + '\'' +
+                ", hiddenWord='" + hiddenWord + '\'' +
                 '}';
     }
 }

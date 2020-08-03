@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>GameOver</title>
+    <title>CMPT 213 Online Hangman Game</title>
 </head>
 <body>
-
+<div align="center">
+    <form action="#" th:action="@{/game}" method="post" th:object="${gameInfo}">
+        <h1>Game <th:block th:text="${gameInfo.gameNumber}">message</th:block> page</h1>
+        <label>Status: <th:block th:text="${gameInfo.status}">message</th:block></label><br/>
+        <label>Word: <th:block th:text="${gameInfo.word}">message</th:block></label>
+    </form>
+</div>
 </body>
 </html>
