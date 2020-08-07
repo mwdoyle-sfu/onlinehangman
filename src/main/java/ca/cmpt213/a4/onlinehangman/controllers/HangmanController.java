@@ -50,6 +50,7 @@ public class HangmanController {
         images.add("/images/hangman5.jpg");
         images.add("/images/hangman6.jpg");
         images.add("/images/hangman7.jpg");
+        images.add("/images/hangman8.jpg");
     }
 
     @GetMapping("/helloworld")
@@ -130,7 +131,7 @@ public class HangmanController {
                 return "gameover";
             }
             // check for loss
-            if (gameInfo.getIncorrectGuesses() == 7)  {
+            if (gameInfo.getIncorrectGuesses() == 8)  {
                 gameInfo.setStatus(GameInfo.Status.Lost);
                 model.addAttribute("gameInfo", gameInfo);
                 gameInfoList.set((int)gameInfo.getGameNumber() - 1, gameInfo);
